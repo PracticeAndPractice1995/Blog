@@ -10,43 +10,30 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\Task;
 
 
-Route::get('/', function () {
+Route::get('/books','BookController@index');
 
-    return view('welcome');
-});
+Route::get('/books/{id}','BookController@show');
 
-Route::get('/tasks',function(){
+Route::get('/post','PostController@index');
 
-    $tasks = DB::table('tasks')->get();
+Route::get('/','PostController@index');
 
-//    return $tasks;
-    return view('tasks.index', compact('tasks'));
-});
+Route::get('/post/create','PostController@create');
 
-Route::get('/tasks/{task}',function($id){
+Route::post('/post','PostController@store');
 
-    $task = DB::table('tasks')->find($id);
+Route::get('/post/{id}','PostController@show');
 
-    return view('tasks.show',compact('task'));
-});
+Route::post('/post/{id}/comments','CommentsController@store');
 
 
+Auth::routes();
 
+Route::get('/home', 'HomeController@index');
 
+Auth::routes();
 
-
-//Route::get('user/{userId}/pass/{passId}', function ($id, $passId){
-//    return '<h1>'.'User '.$id.'<br>'.' Pass '.$passId.'</h1>';
-//});
-//Route::get('/user/{name?}',function($name = null){
-//    return 'ok'.$name;
-//});
-//Route::get('/user/{name?}',function($name = 'Manh'){
-//    return 'ok'.$name;
-//});
-//Route::get('user/{name}/age/{age}', function ($name, $age) {
-//    //
-//    return 'Name : '.$name.'</br>'.'Age : '.$age;
-//})->where(['name'=>'[A-Za-z]+', 'age' => '[0-9]+']);
+Route::get('/home', 'HomeController@index');
